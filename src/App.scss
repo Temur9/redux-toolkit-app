@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'poppins-regular';
+    src: url('../public/fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'poppins-medium';
+    src: url('../public/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'poppins-semibold';
+    src: url('../public/fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'poppins-bold';
+    src: url('../public/fonts/Poppins-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'poppins-extrabold';
+    src: url('../public/fonts/Poppins-ExtraBold.ttf');
+}
+
+// main colors
+$bgColor: #000000;
+$smallBg:#0D0D0D;
+$hoverColor: #3C82F4;
+$signColor: #306EF7;
+$btnColor: #326CF9;
+$stepColor: #3D82F2;
+$smallTxt: #707070;
+$mainTxt: #FFFFFF;
+$numberBg: #2D2D2D;
+$pulseClr: #0FC65C;
+$linkClr: #919191;
+
+// fonts
+$regular: 'poppins-regular';
+$medium: 'poppins-medium';
+$semiB: 'poppins-semibold';
+$bold: 'poppins-bold';
+$extraB: 'poppins-extrabold';
+
+
+body {
+    background-color: $bgColor;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+
+
+@media(max-width:1150px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media(max-width:480px){
+    .container{
+        width: 95%;
+    }
+}
+
+
+
+
+
+
+
+
+
+.slide-bottom {
+    -webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+@-webkit-keyframes slide-bottom {
+    0% {
+        -webkit-transform: translateY(-25%);
+        transform: translateY(-25%);
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-bottom {
+    0% {
+        -webkit-transform: translateY(-25%);
+        transform: translateY(-25%);
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
