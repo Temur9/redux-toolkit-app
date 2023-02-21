@@ -8,6 +8,7 @@ import {
   loginUserSuccess,
 } from "../slice/auth";
 import AuthService from "../service/auth";
+import { ValidationError } from "./";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,14 +27,13 @@ const Login = () => {
       dispatch(loginUserFailure(error.response.data.errors));
     }
   };
-
   return (
     <>
       <div className="text-center">
         <main className="form-signin w-25 m-auto">
           <form>
             <h1 className="h3 mb-3 fw-normal">Please login</h1>
-
+            <ValidationError />
             <Input
               type={"email"}
               label={"Email address"}

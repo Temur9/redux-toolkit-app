@@ -8,6 +8,7 @@ import {
   registerUserSuccess,
 } from "../slice/auth";
 import AuthService from "../service/auth";
+import { ValidationError } from "./";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ const Register = () => {
       const response = await AuthService.userRegister(user);
       dispatch(registerUserSuccess(response.user));
     } catch (error) {
-      dispatch(registerUserFailure(error.response.data.error));
+      dispatch(registerUserFailure(error.response.data.errors));
     }
   };
 
@@ -37,7 +38,7 @@ const Register = () => {
         <main className="form-signin w-25 m-auto">
           <form>
             <h1 className="h3 mb-3 fw-normal">Please register</h1>
-
+            <ValidationError />
             <Input
               type={"text"}
               label={"Username"}
