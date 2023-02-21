@@ -9,20 +9,23 @@ import {
 } from "../slice/auth";
 import AuthService from "../service/auth";
 import { ValidationError } from "./";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
+const navigate = useNavigate()
 
   const loginHandler = async (e) => {
     e.preventDefault();
     dispatch(loginUserStart());
     const user = { email, password };
     try {
-      const response = await AuthService(user);
+      const response = await AuthService.userLogin(user);
       dispatch(loginUserSuccess(response.user));
+      navigate('/')
     } catch (error) {
       dispatch(loginUserFailure(error.response.data.errors));
     }

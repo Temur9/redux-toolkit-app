@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const { loggedIn, user } = useSelector((state) => state.auth);
+
   return (
     <>
       <div className="container d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom pt-3">
@@ -26,16 +29,27 @@ const Navbar = () => {
         </Link>
 
         <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-          <Link
-            className="me-3 py-2 text-dark text-decoration-none"
-            to="/login">
-            Login
-          </Link>
-          <Link
-            className="me-3 py-2 text-dark text-decoration-none"
-            to="/register">
-            Register
-          </Link>
+          {loggedIn ? (
+            <>
+              <p className="me-3 py-2 m-0 text-dark text-decoration-none">
+                {user.username}
+              </p>
+              <button className="btn btn-outline-danger">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link
+                className="me-3 py-2 text-dark text-decoration-none"
+                to="/login">
+                Login
+              </Link>
+              <Link
+                className="me-3 py-2 text-dark text-decoration-none"
+                to="/register">
+                Register
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </>

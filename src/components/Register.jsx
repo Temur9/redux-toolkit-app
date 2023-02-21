@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../UI";
 import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -9,6 +9,7 @@ import {
 } from "../slice/auth";
 import AuthService from "../service/auth";
 import { ValidationError } from "./";
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,7 +17,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -27,10 +29,17 @@ const Register = () => {
     try {
       const response = await AuthService.userRegister(user);
       dispatch(registerUserSuccess(response.user));
+      navigate('/')
     } catch (error) {
       dispatch(registerUserFailure(error.response.data.errors));
     }
   };
+
+useEffect(()=>{
+  if(loggedIn) {
+    navigate('/')
+  }
+},[])
 
   return (
     <>
