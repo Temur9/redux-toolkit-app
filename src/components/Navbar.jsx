@@ -1,9 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { removeItem } from "../helpers/persistance-storage";
+import { logoutUser } from "../slice/auth";
 
 const Navbar = () => {
   const { loggedIn, user } = useSelector((state) => state.auth);
+const navigate = useNavigate()
+const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(logoutUser())
+    removeItem('token')
+    navigate('/login')
+  };
 
   return (
     <>
@@ -34,7 +44,7 @@ const Navbar = () => {
               <p className="me-3 py-2 m-0 text-dark text-decoration-none">
                 {user.username}
               </p>
-              <button className="btn btn-outline-danger">Logout</button>
+              <button className="btn btn-outline-danger" onClick={logoutHandler}>Logout</button>
             </>
           ) : (
             <>

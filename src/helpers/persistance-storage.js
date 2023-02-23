@@ -5,3 +5,19 @@ localStorage.setItem(key,data)
         console.log('error saving');
     }
 }
+
+export const getItem = (key) =>{
+    try {
+      return localStorage.getItem(key)
+    } catch (error) {
+        console.log('Error getting data');
+    }
+}
+
+export const removeItem=(key)=>{
+    try {
+        localStorage.removeItem(key)
+    } catch (error) {
+        console.log('Error removing data');
+    }
+}

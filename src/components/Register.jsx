@@ -3,9 +3,9 @@ import { Input } from "../UI";
 import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import {
-  registerUserFailure,
-  registerUserStart,
-  registerUserSuccess,
+  authUserFailure,
+  authUserStart,
+  authUserSuccess,
 } from "../slice/auth";
 import AuthService from "../service/auth";
 import { ValidationError } from "./";
@@ -22,16 +22,16 @@ const Register = () => {
 
   const registerHandler = async (e) => {
     e.preventDefault();
-    dispatch(registerUserStart());
+    dispatch(authUserStart());
 
     const user = { username: name, email, password };
 
     try {
       const response = await AuthService.userRegister(user);
-      dispatch(registerUserSuccess(response.user));
+      dispatch(authUserSuccess(response.user));
       navigate('/')
     } catch (error) {
-      dispatch(registerUserFailure(error.response.data.errors));
+      dispatch(authUserFailure(error.response.data.errors));
     }
   };
 
@@ -39,7 +39,7 @@ useEffect(()=>{
   if(loggedIn) {
     navigate('/')
   }
-},[])
+},[loggedIn])
 
   return (
     <>
