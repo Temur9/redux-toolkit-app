@@ -8,7 +8,6 @@ const AuthService = {
     },
     async userLogin(user){
         const {data} = await axios.post('/users/login',{user})
-
         return data
     },
     async getUser(){

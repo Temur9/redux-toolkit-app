@@ -23,8 +23,7 @@ const App = () => {
   const getArticles = async () => {
     dispatch(getArticlesStart())
     try {
-      const response = await ArticleService.getArticles();
-      console.log(response);
+    const response = await ArticleService.getArticles();
       dispatch(getArticleSuccess(response.articles))
     } catch (error) {
       console.log(error);
@@ -46,7 +45,7 @@ const App = () => {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/article/:id" element={<ArticleDetail/>}/>
+        <Route path="/article/:slug" element={<ArticleDetail/>}/>
       </Routes>
     </>
   );

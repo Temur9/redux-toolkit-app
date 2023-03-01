@@ -5,7 +5,7 @@ import {
 const initialState = {
     isLoading: false,
     articles: [],
-    articleDetail:null,
+    articleDetail: null,
     error: null,
 }
 
@@ -22,17 +22,17 @@ export const articleSlice = createSlice({
         },
         getArticleFailure: (state, action) => {
             state.error = action.payload
-            state.isLoading=false
+            state.isLoading = false
         },
-        getArticleDetailStart:state=>{
-state.isLoading=true
+        getArticleDetailStart: state => {
+            state.isLoading = true
         },
-        getArticleDetailSuccess:(state,action)=>{
-            state.isLoading=false
-            state.articleDetail=action.payload
+        getArticleDetailSuccess: (state, action) => {
+            state.isLoading = false
+            state.articleDetail = action.payload
         },
-        getArticleDetailFailure:state=>{
-            state.isLoading=false
+        getArticleDetailFailure: state => {
+            state.isLoading = false
         },
     },
 

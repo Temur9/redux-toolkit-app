@@ -14,7 +14,7 @@ const Main = () => {
           <div className="container">
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               {articles.map((item) => (
-                <div className="col" key={item.id}>
+                <div className="col" key={item.favoritesCount}>
                   <div className="card shadow-sm h-100">
                     <svg
                       className="bd-placeholder-img card-img-top"
