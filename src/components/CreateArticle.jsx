@@ -1,25 +1,48 @@
 import React, { useState } from "react";
-import { Input, TextArea } from "../UI";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import ArticleService from "../service/article";
+import {
+  postArticleFailure,
+  postArticleStart,
+  postArticleSuccess,
+} from "../slice/article";
+import CreateForm from "./create-form";
 
 const CreateArticle = () => {
-const [title,setTitle] = useState()
-const [description,setDescription]= useState('')
-const [body,setBody]= useState('')
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState("");
+  const [body, setBody] = useState("");
 
+  const dispatch = useDispatch();
+const navigate = useNavigate()
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    const article = { title, description, body };
+    dispatch(postArticleStart());
+    try {
+      await ArticleService.postArticle(article);
+      dispatch(postArticleSuccess());
+      navigate('/')
+    } catch (error) {
+      dispatch(postArticleFailure());
+    }
+  };
   return (
     <>
       <div className="text-center">
         <h1 className="fs-2">Create Article</h1>
         <div className="w-75 mx-auto">
-          <form>
-            <Input label={'Title'} state={title} setState={setTitle}/>
-            <TextArea label={'Description'} state={description} setState={setDescription}/>
-            <TextArea label={'Body'} state={body} setState={setBody} height={'300px'}/>
-            <button
-              className="w-100 btn btn-lg btn-primary"
-              type="submit">Create
-            </button>
-          </form>
+          <CreateForm
+            title={title}
+            description={description}
+            body={body}
+            setTitle={setTitle}
+            setDescription={setDescription}
+            setBody={setBody}
+            formSubmit={formSubmit}
+          />
         </div>
       </div>
     </>
