@@ -6,22 +6,32 @@ import { getArticlesStart, getArticleSuccess } from "../slice/article";
 import { Loader } from "../UI";
 const Main = () => {
   const { articles, isLoading } = useSelector((state) => state.article);
+  const { user, loggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getArticles = async () => {
-    dispatch(getArticlesStart())
+    dispatch(getArticlesStart());
     try {
-    const response = await ArticleService.getArticles();
-      dispatch(getArticleSuccess(response.articles))
+      const response = await ArticleService.getArticles();
+      dispatch(getArticleSuccess(response.articles));
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(()=>{
+  const deleteArticle = async (slug) => {
+    try {
+      await ArticleService.deleteArticle(slug);
+      getArticles()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     getArticles();
-  },[])
+  }, []);
 
   return (
     <>
@@ -60,16 +70,21 @@ const Main = () => {
                           className="btn btn-sm btn-outline-success">
                           View
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary">
-                          Edit
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-danger">
-                          Delete
-                        </button>
+                        {loggedIn && user.username === item.author.username && (
+                          <>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary">
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => deleteArticle(item.slug)}>
+                              Delete
+                            </button>
+                          </>
+                        )}
                       </div>
                       <small className="text-muted fw-bold text-capitalize">
                         {item.author.username}
