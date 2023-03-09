@@ -10,12 +10,12 @@ import {
 import CreateForm from "./create-form";
 
 const CreateArticle = () => {
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
 
   const dispatch = useDispatch();
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const formSubmit = async (e) => {
     e.preventDefault();
@@ -24,25 +24,26 @@ const navigate = useNavigate()
     try {
       await ArticleService.postArticle(article);
       dispatch(postArticleSuccess());
-      navigate('/')
+      navigate("/");
     } catch (error) {
       dispatch(postArticleFailure());
     }
+  };
+  const formProps = {
+    title,
+    description,
+    body,
+    setTitle,
+    setDescription,
+    setBody,
+    formSubmit,
   };
   return (
     <>
       <div className="text-center">
         <h1 className="fs-2">Create Article</h1>
         <div className="w-75 mx-auto">
-          <CreateForm
-            title={title}
-            description={description}
-            body={body}
-            setTitle={setTitle}
-            setDescription={setDescription}
-            setBody={setBody}
-            formSubmit={formSubmit}
-          />
+          <CreateForm {...formProps} />
         </div>
       </div>
     </>
